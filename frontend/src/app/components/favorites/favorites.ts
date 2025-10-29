@@ -27,13 +27,8 @@ export class FavoritesComponent {
       }
     });
   }
+
   eliminar(nombre: string) {
-    console.log('Recibido para eliminar:', nombre); // ← este debería aparecer
-    this.pokemonService.eliminarFavorito(nombre).subscribe({
-      next: () => {
-        this.favoritos = this.favoritos.filter(p => p.name !== nombre);
-      },
-      error: () => alert('Error al eliminar el favorito')
-    });
+    this.favoritos = this.favoritos.filter(p => p.name !== nombre);
   }
 }

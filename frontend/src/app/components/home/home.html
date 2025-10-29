@@ -1,0 +1,23 @@
+<div class="home-container">
+  <div class="hero-section">
+    <h1 class="hero-title">Pokedex Personal</h1>
+    <p class="hero-subtitle">Descubre y guarda tus Pokémon favoritos</p>
+    
+    <div class="hero-buttons">
+      <a routerLink="/buscar" class="btn btn-primary">Buscar Pokémon</a>
+      <a routerLink="/favoritos" class="btn btn-secondary">Mis Favoritos</a>
+    </div>
+  </div>
+
+  <div class="popular-section">
+    <h2>Pokémon Más Populares</h2>
+    <div class="pokemon-grid">
+      <div class="pokemon-card" *ngFor="let pokemon of popularPokemon">
+        <img [src]="pokemon.image" [alt]="pokemon.name" class="pokemon-image">
+        <h3 class="pokemon-name">{{ pokemon.name | titlecase }}</h3>
+        <p class="pokemon-number">#{{ pokemon.id }}</p>
+        <p class="pokemon-type">{{ pokemon.type }}</p>
+      </div>
+    </div>
+  </div>
+</div>

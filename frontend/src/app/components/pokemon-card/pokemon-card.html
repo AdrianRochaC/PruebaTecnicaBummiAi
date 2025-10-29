@@ -8,15 +8,41 @@
     <p>Peso: {{ pokemon.weight }}</p>
   </ng-container>
 
-  <ng-container *ngIf="pokemon.nickname">
-    <p>Apodo: {{ pokemon.nickname }}</p>
+  <ng-container *ngIf="yaEsFavorito">
+    <div class="nickname-section">
+      <p *ngIf="pokemon.nickname && !editandoApodo">
+        <strong>Apodo:</strong> {{ pokemon.nickname }}
+        <button (click)="iniciarEdicionApodo()" class="edit-btn">Editar</button>
+      </p>
+      
+      <div *ngIf="editandoApodo" class="nickname-edit">
+        <input 
+          [(ngModel)]="nuevoApodo" 
+          placeholder="Ingresa un apodo"
+          class="nickname-input">
+        <div class="nickname-buttons">
+          <button (click)="guardarApodo()" class="save-btn">Guardar</button>
+          <button (click)="cancelarEdicionApodo()" class="cancel-btn">Cancelar</button>
+        </div>
+      </div>
+      
+      <p *ngIf="!pokemon.nickname && !editandoApodo">
+        <button (click)="iniciarEdicionApodo()" class="add-nickname-btn">
+          Agregar apodo
+        </button>
+      </p>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="!yaEsFavorito">
-    <button (click)="guardarFavorito()">Guardar como favorito</button>
+    <button (click)="guardarFavorito()" class="guardar-favorito-btn">
+      Guardar como favorito
+    </button>
   </ng-container>
 
   <ng-container *ngIf="yaEsFavorito">
-    <button (click)="eliminarFavorito()">Eliminar favorito</button>
+    <button (click)="eliminarFavorito()" [disabled]="eliminando" class="eliminar-favorito-btn">
+      {{ eliminando ? 'Eliminando...' : 'Eliminar favorito' }}
+    </button>
   </ng-container>
 </div>

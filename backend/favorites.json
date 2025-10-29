@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": 25,
+    "name": "pikachu",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+    "nickname": "Rayito"
+  },
+  {
+    "id": 150,
+    "name": "mewtwo",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
+    "nickname": "Gatito"
+  },
+  {
+    "id": 7,
+    "name": "squirtle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+    "nickname": ""
+  },
+  {
+    "id": 143,
+    "name": "snorlax",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png",
+    "nickname": ""
+  }
+]
