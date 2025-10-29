@@ -1,0 +1,14 @@
+<div class="favorites-container">
+  <h2>⭐ Mis Pokémon Favoritos</h2>
+
+  <div *ngIf="loading">Cargando favoritos...</div>
+  <div *ngIf="error">Error al cargar favoritos</div>
+
+  <div class="favorites-grid">
+    <app-pokemon-card
+      *ngFor="let fav of favoritos"
+      [pokemon]="fav"
+      (eliminado)="eliminar($event)">
+    </app-pokemon-card>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+@media (max-width: 768px) {
+  .card {
+    max-width: 90%;
+    padding: 0.8rem;
+  }
+
+  .card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+  }
+
+  .card button {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

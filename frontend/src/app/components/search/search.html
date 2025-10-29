@@ -1,0 +1,19 @@
+<div class="search-container">
+  <h1>🔍 Pokédex</h1>
+
+  <form (submit)="searchPokemon(); $event.preventDefault()" class="search-form">
+    <input
+      type="text"
+      [(ngModel)]="query"
+      name="query"
+      placeholder="Busca un Pokémon por nombre o número..."
+      required
+    />
+    <button type="submit">Buscar</button>
+  </form>
+
+  <div *ngIf="loading">Cargando Pokémon...</div>
+  <div *ngIf="error">No se encontró el Pokémon</div>
+
+  <app-pokemon-card *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-card>
+</div>
