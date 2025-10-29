@@ -31,6 +31,22 @@ uvicorn main:app --reload --port 3000
 
 El backend estará disponible en: `http://localhost:3000`
 
+### Variables de entorno (local)
+
+En `backend/` crea un `.env` a partir de `env.example` y define:
+
+```
+MONGODB_URL=mongodb+srv://TU_USUARIO:TU_PASSWORD@cluster.mongodb.net/?retryWrites=true&w=majority
+DATABASE_NAME=pokedex_db
+```
+
+Para usar MongoDB local:
+
+```
+MONGODB_URL=mongodb://localhost:27017
+DATABASE_NAME=pokedex_db
+```
+
 ### Frontend (Interfaz)
 
 1. Instalar dependencias:
@@ -45,6 +61,18 @@ ng serve
 ```
 
 El frontend estará disponible en: `http://localhost:4200`
+
+### Nota (API URL en local)
+
+Por defecto el frontend apunta al backend desplegado. Si quieres usar backend local, edita `frontend/src/app/services/pokemon.service.ts` y cambia:
+
+```ts
+// Producción (Render)
+private apiUrl = 'https://pokedex-backend-1ybj.onrender.com';
+
+// Local (opcional)
+// private apiUrl = 'http://localhost:3000';
+```
 
 ## Configuración de MongoDB
 
@@ -151,6 +179,9 @@ npm install
 ng serve
 ```
 
+### Usar backend local desde el frontend
+Edita `frontend/src/app/services/pokemon.service.ts` y usa `http://localhost:3000`.
+
 ### Pruebas
 ```bash
 # Probar conexión MongoDB
@@ -163,11 +194,29 @@ python list_favorites.py
 ```
 
 ### Despliegue
-- **Backend**: Render, Railway, o Heroku
-- **Frontend**: Vercel, Netlify, o GitHub Pages
+- **Backend (Render)**: `https://pokedex-backend-1ybj.onrender.com`
+- **Frontend (Render)**: `https://pokedex-l13v.onrender.com`
 - **Base de Datos**: MongoDB Atlas (cada proyecto debe tener su propia base de datos)
-- **Variables de Entorno**: Configurar `MONGODB_URL` en la plataforma de despliegue
+- **Variables de Entorno**: Configurar `MONGODB_URL` y `DATABASE_NAME` en la plataforma de despliegue
+
+#### Render - Resumen
+- Backend (Web Service, raíz `backend/`):
+  - Build: `pip install -r requirements.txt`
+  - Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+  - Python: 3.11.x
+  - Env: `MONGODB_URL`, `DATABASE_NAME`
+- Frontend (Static Site, raíz `frontend/`):
+  - Build: `npm ci && npm run build` (o `npx ng build --configuration production`)
+  - Publish/Output: `dist/frontend`
+  - Rewrites: `/* -> /index.html` (200)
 
 ---
 
 **Nota**: Asegúrate de tener tanto el backend como el frontend ejecutándose simultáneamente.
+
+## Estado del despliegue
+
+- Backend: `https://pokedex-backend-1ybj.onrender.com`
+- Frontend: `https://pokedex-l13v.onrender.com/favoritos` (y la raíz del sitio)
+
+Si ves 404 en rutas internas, agrega en el hosting la reescritura `/* -> /index.html`.
