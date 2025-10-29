@@ -9,6 +9,17 @@ load_dotenv()
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
 DATABASE_NAME = "pokedex_db"
 
+# Función para obtener URL con parámetros SSL
+def get_mongodb_url():
+    url = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+    if "mongodb+srv://" in url:
+        # Agregar parámetros SSL para Render
+        if "?" not in url:
+            url += "?retryWrites=true&w=majority&ssl=true&tlsAllowInvalidCertificates=true"
+        elif "ssl=" not in url:
+            url += "&ssl=true&tlsAllowInvalidCertificates=true"
+    return url
+
 # Global client
 client = None
 database = None
@@ -16,7 +27,9 @@ database = None
 async def connect_to_mongo():
     global client, database
     try:
-        client = AsyncIOMotorClient(MONGODB_URL)
+        # Usar URL con parámetros SSL
+        mongodb_url = get_mongodb_url()
+        client = AsyncIOMotorClient(mongodb_url)
         database = client[DATABASE_NAME]
         # Test connection
         await client.admin.command('ping')
