@@ -51,3 +51,6 @@ build/
 # Archivos de backup
 *.bak
 *.backup
+
+# Archivos de configuración de despliegue
+runtime.txt
