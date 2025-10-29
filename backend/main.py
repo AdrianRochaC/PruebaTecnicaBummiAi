@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from models import Favorite
 from database import get_favorites, add_favorite, delete_favorite, update_favorite_nickname
 from config import connect_to_mongo, close_mongo_connection
+import os
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,7 +19,7 @@ app = FastAPI(lifespan=lifespan)
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # En producción, especificar dominios exactos
     allow_methods=["*"],
     allow_headers=["*"],
 )

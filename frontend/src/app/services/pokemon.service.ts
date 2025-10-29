@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PokemonService {
+  private apiUrl = 'http://localhost:3000'; // Cambiar por variable de entorno en producción
+  
   constructor(private http: HttpClient) {}
 
   getPokemon(query: string): Observable<any> {
@@ -17,18 +19,18 @@ export class PokemonService {
       image: pokemon.sprites?.front_default || pokemon.image || '',
       nickname: '',
     };
-    return this.http.post('http://localhost:3000/api/favorites', favorito);
+    return this.http.post(`${this.apiUrl}/api/favorites`, favorito);
   }
 
   getFavoritos() {
-    return this.http.get<any[]>('http://localhost:3000/api/favorites');
+    return this.http.get<any[]>(`${this.apiUrl}/api/favorites`);
   }
 
   eliminarFavorito(nombre: string) {
-    return this.http.delete(`http://localhost:3000/api/favorites/${nombre}`);
+    return this.http.delete(`${this.apiUrl}/api/favorites/${nombre}`);
   }
 
   actualizarApodo(nombre: string, nickname: string): Observable<any> {
-    return this.http.put(`http://localhost:3000/api/favorites/${nombre}`, { nickname });
+    return this.http.put(`${this.apiUrl}/api/favorites/${nombre}`, { nickname });
   }
 }
