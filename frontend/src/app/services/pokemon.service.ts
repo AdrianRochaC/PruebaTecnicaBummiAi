@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PokemonService {
-  private apiUrl = 'http://localhost:3000'; // Cambiar por variable de entorno en producción
+  private apiUrl = 'https://pokedex-backend-1ybj.onrender.com';
   
   constructor(private http: HttpClient) {}
 
