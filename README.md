@@ -1,6 +1,8 @@
 # Pokedex Personal
 
 Una aplicación web full-stack para explorar, buscar y gestionar tus Pokémon favoritos con apodos personalizados.
+## URL Desplegada para Revisión
+https://pokedex-l13v.onrender.com/
 
 ## Instalación y Ejecución
 
