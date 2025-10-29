@@ -36,7 +36,7 @@ El backend estará disponible en: `http://localhost:3000`
 En `backend/` crea un `.env` a partir de `env.example` y define:
 
 ```
-MONGODB_URL=mongodb+srv://TU_USUARIO:TU_PASSWORD@cluster.mongodb.net/?retryWrites=true&w=majority
+MONGODB_URL=mongodb+srv://<usuario>:<password>@cluster.example.mongodb.net/?retryWrites=true&w=majority
 DATABASE_NAME=pokedex_db
 ```
 
@@ -90,7 +90,7 @@ private apiUrl = 'https://pokedex-backend-1ybj.onrender.com';
    cp backend/env.example backend/.env
    
    # Editar con tu URL
-   MONGODB_URL=mongodb+srv://TU_USUARIO:TU_PASSWORD@cluster.mongodb.net/?appName=Cluster0
+   MONGODB_URL=mongodb+srv://<usuario>:<password>@cluster.example.mongodb.net/?appName=Cluster0
    DATABASE_NAME=pokedex_db
    ```
 
