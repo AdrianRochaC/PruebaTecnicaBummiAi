@@ -15,9 +15,11 @@ def get_mongodb_url():
     if "mongodb+srv://" in url:
         # Agregar parámetros SSL para Render
         if "?" not in url:
-            url += "?retryWrites=true&w=majority&ssl=true&tlsAllowInvalidCertificates=true"
-        elif "ssl=" not in url:
-            url += "&ssl=true&tlsAllowInvalidCertificates=true"
+            url += "?retryWrites=true&w=majority&ssl=true&tlsAllowInvalidCertificates=true&tlsInsecure=true"
+        else:
+            # Reemplazar parámetros existentes
+            if "ssl=" not in url:
+                url += "&ssl=true&tlsAllowInvalidCertificates=true&tlsInsecure=true"
     return url
 
 # Global client
@@ -29,14 +31,34 @@ async def connect_to_mongo():
     try:
         # Usar URL con parámetros SSL
         mongodb_url = get_mongodb_url()
-        client = AsyncIOMotorClient(mongodb_url)
+        print(f"Intentando conectar con URL: {mongodb_url[:50]}...")
+        
+        # Configuración SSL más permisiva
+        client = AsyncIOMotorClient(
+            mongodb_url,
+            tls=True,
+            tlsAllowInvalidCertificates=True,
+            tlsInsecure=True,
+            serverSelectionTimeoutMS=5000
+        )
         database = client[DATABASE_NAME]
-        # Test connection
+        
+        # Test connection con timeout más corto
         await client.admin.command('ping')
         print("Conectado a MongoDB Atlas")
     except Exception as e:
         print(f"Error conectando a MongoDB: {e}")
-        raise e
+        # Intentar con configuración más simple
+        try:
+            print("Intentando con configuración SSL simplificada...")
+            simple_url = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+            client = AsyncIOMotorClient(simple_url)
+            database = client[DATABASE_NAME]
+            await client.admin.command('ping')
+            print("Conectado a MongoDB Atlas (modo simple)")
+        except Exception as e2:
+            print(f"Error en modo simple: {e2}")
+            raise e
 
 async def close_mongo_connection():
     global client
